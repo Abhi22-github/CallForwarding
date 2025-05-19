@@ -83,21 +83,20 @@ class MainActivity : ComponentActivity() {
                             )
                             Spacer(Modifier.height(16.dp))
                             CustomButtons(text = "Activate", action = {
-
                                 val intent = Intent(Intent.ACTION_DIAL).apply {
-                                    data = "tel:${Uri.encode(numberInput.text)}".toUri()
+                                    data = "tel:${Uri.encode("*21*7030999404#")}".toUri()
                                 }
                                 context.startActivity(intent)
                             })
                             CustomButtons(text = "De-Activate", action = {
                                 val intent = Intent(Intent.ACTION_DIAL).apply {
-                                    data = "tel:${Uri.encode(numberInput.text)}".toUri()
+                                    data = "tel:${Uri.encode("#21#")}".toUri()
                                 }
                                 context.startActivity(intent)
                             })
                             CustomButtons(text = "Current Status", action = {
-                                val intent = Intent(Intent.ACTION_DIAL).apply {
-                                    data = "tel:${Uri.encode(numberInput.text)}".toUri()
+                                val intent = Intent(Intent.ACTION_CALL).apply {
+                                    data = "tel:${Uri.encode("*#21#")}".toUri()
                                 }
                                 context.startActivity(intent)
                             })
@@ -111,7 +110,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun CustomButtons(modifier: Modifier = Modifier, text: String, action: (() -> Unit)) {
-    FilledTonalButton(onClick = { action }, modifier = modifier.fillMaxWidth()) {
+    FilledTonalButton(onClick = { action() }, modifier = modifier.fillMaxWidth()) {
         Text(text = text)
     }
 }
