@@ -30,6 +30,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
@@ -54,6 +55,16 @@ class MainActivity : ComponentActivity() {
                             modifier = Modifier.padding(24.dp),
                             horizontalAlignment = Alignment.CenterHorizontally
                         ) {
+                            Text(
+                                text = "Call Forwarding",
+                                style = typography.titleLarge,
+                                fontWeight = FontWeight(600)
+                            )
+                            Text(
+                                text = "Activate/Deactivate Call Forwarding",
+                                style = typography.bodyMedium,
+                            )
+                            Spacer(modifier = Modifier.height(48.dp))
                             TextField(
                                 value = numberInput,
                                 onValueChange = { newText ->
@@ -79,12 +90,12 @@ class MainActivity : ComponentActivity() {
                                     unfocusedContainerColor = MaterialTheme.colorScheme.surfaceContainer,
                                     focusedContainerColor = MaterialTheme.colorScheme.surfaceContainerHigh
                                 ),
-                                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+                                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                             )
                             Spacer(Modifier.height(16.dp))
                             CustomButtons(text = "Activate", action = {
                                 val intent = Intent(Intent.ACTION_DIAL).apply {
-                                    data = "tel:${Uri.encode("*21*7030999404#")}".toUri()
+                                    data = "tel:${Uri.encode("*21*${numberInput.text}#")}".toUri()
                                 }
                                 context.startActivity(intent)
                             })
@@ -95,7 +106,7 @@ class MainActivity : ComponentActivity() {
                                 context.startActivity(intent)
                             })
                             CustomButtons(text = "Current Status", action = {
-                                val intent = Intent(Intent.ACTION_CALL).apply {
+                                val intent = Intent(Intent.ACTION_DIAL).apply {
                                     data = "tel:${Uri.encode("*#21#")}".toUri()
                                 }
                                 context.startActivity(intent)
