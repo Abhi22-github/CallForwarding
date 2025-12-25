@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Call Forwarding</string>
+    <string name="manage_incoming_calls">Manage incoming calls</string>
+    <string name="call_forwarding">Call Forwarding</string>
+    <string name="activate">Activate</string>
+    <string name="deactivate">De-Activate</string>
+    <string name="status">Status</string>
 </resources>
