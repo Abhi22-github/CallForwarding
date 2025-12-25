@@ -49,19 +49,19 @@ class MainActivity : ComponentActivity() {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Column(
                         modifier = Modifier.padding(innerPadding),
-                        horizontalAlignment = Alignment.CenterHorizontally
+                        horizontalAlignment = Alignment.CenterHorizontally,
                     ) {
                         Column(
                             modifier = Modifier.padding(24.dp),
-                            horizontalAlignment = Alignment.CenterHorizontally
+                            horizontalAlignment = Alignment.CenterHorizontally,
                         ) {
                             Text(
                                 text = "Call Forwarding",
                                 style = typography.titleLarge,
-                                fontWeight = FontWeight(600)
+                                fontWeight = FontWeight(600),
                             )
                             Text(
-                                text = "Activate/Deactivate Call Forwarding",
+                                text = "Manage incoming calls",
                                 style = typography.bodyMedium,
                             )
                             Spacer(modifier = Modifier.height(48.dp))
@@ -71,44 +71,50 @@ class MainActivity : ComponentActivity() {
                                     numberInput = newText
                                 },
                                 singleLine = true,
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(0.dp, 4.dp),
+                                modifier =
+                                    Modifier
+                                        .fillMaxWidth()
+                                        .padding(0.dp, 4.dp),
                                 placeholder = {
                                     Text(
                                         "Phone Number",
                                         style = typography.bodyLarge,
-                                        color = MaterialTheme.colorScheme.onSurfaceVariant.copy(
-                                            0.38f
-                                        )
+                                        color =
+                                            MaterialTheme.colorScheme.onSurfaceVariant.copy(
+                                                0.38f,
+                                            ),
                                     )
                                 },
                                 shape = RoundedCornerShape(20.dp),
-                                colors = TextFieldDefaults.colors(
-                                    focusedIndicatorColor = Color.Transparent,
-                                    unfocusedIndicatorColor = Color.Transparent,
-                                    unfocusedContainerColor = MaterialTheme.colorScheme.surfaceContainer,
-                                    focusedContainerColor = MaterialTheme.colorScheme.surfaceContainerHigh
-                                ),
+                                colors =
+                                    TextFieldDefaults.colors(
+                                        focusedIndicatorColor = Color.Transparent,
+                                        unfocusedIndicatorColor = Color.Transparent,
+                                        unfocusedContainerColor = MaterialTheme.colorScheme.surfaceContainer,
+                                        focusedContainerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
+                                    ),
                                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                             )
                             Spacer(Modifier.height(16.dp))
                             CustomButtons(text = "Activate", action = {
-                                val intent = Intent(Intent.ACTION_DIAL).apply {
-                                    data = "tel:${Uri.encode("*21*${numberInput.text}#")}".toUri()
-                                }
+                                val intent =
+                                    Intent(Intent.ACTION_DIAL).apply {
+                                        data = "tel:${Uri.encode("*21*${numberInput.text}#")}".toUri()
+                                    }
                                 context.startActivity(intent)
                             })
                             CustomButtons(text = "De-Activate", action = {
-                                val intent = Intent(Intent.ACTION_DIAL).apply {
-                                    data = "tel:${Uri.encode("#21#")}".toUri()
-                                }
+                                val intent =
+                                    Intent(Intent.ACTION_DIAL).apply {
+                                        data = "tel:${Uri.encode("#21#")}".toUri()
+                                    }
                                 context.startActivity(intent)
                             })
                             CustomButtons(text = "Current Status", action = {
-                                val intent = Intent(Intent.ACTION_DIAL).apply {
-                                    data = "tel:${Uri.encode("*#21#")}".toUri()
-                                }
+                                val intent =
+                                    Intent(Intent.ACTION_DIAL).apply {
+                                        data = "tel:${Uri.encode("*#21#")}".toUri()
+                                    }
                                 context.startActivity(intent)
                             })
                         }
@@ -120,7 +126,11 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun CustomButtons(modifier: Modifier = Modifier, text: String, action: (() -> Unit)) {
+fun CustomButtons(
+    modifier: Modifier = Modifier,
+    text: String,
+    action: (() -> Unit),
+) {
     FilledTonalButton(onClick = { action() }, modifier = modifier.fillMaxWidth()) {
         Text(text = text)
     }

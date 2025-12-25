@@ -2,6 +2,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.android.detekt)
+    alias(libs.plugins.android.ktlint)
 }
 
 android {
@@ -23,7 +25,7 @@ android {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
         }
     }
@@ -36,6 +38,28 @@ android {
     }
     buildFeatures {
         compose = true
+    }
+
+    detekt {
+        toolVersion = "1.23.6"
+        config.setFrom(files("$rootDir/config/detekt/detekt-config.yml"))
+        buildUponDefaultConfig = true
+        allRules = false
+    }
+
+    ktlint {
+        android.set(true)
+        outputToConsole.set(true)
+        ignoreFailures.set(false)
+
+        filter {
+            exclude("**/generated/**")
+            include("**/kotlin/**")
+        }
+    }
+
+    tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
+        jvmTarget = "17"
     }
 }
 
